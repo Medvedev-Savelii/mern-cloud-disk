@@ -7,10 +7,16 @@ import "./app.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Registration from "./authorization/Registration";
 import Login from "./authorization/Login";
+import { auth } from "../actions/user";
 
 function App() {
   const isAuth = useSelector((state) => state.user.isAuth);
-  console.log(isAuth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(auth());
+  }, []);
+
   return (
     <BrowserRouter>
       <div className="app">
