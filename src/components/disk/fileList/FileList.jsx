@@ -1,7 +1,24 @@
 import React from "react";
 import "./fileList.css";
+import { useSelector } from "react-redux";
+import File from "./file/File";
+
 const FileList = () => {
-  return <div>FileList</div>;
+  const files = useSelector((state) => state.files.files);
+  const fileView = useSelector((state) => state.files.view);
+
+  return (
+    <div className="filelist">
+      <div className="filelist__header">
+        <div className="filelist__name">Название</div>
+        <div className="filelist__date">Дата</div>
+        <div className="filelist__size">Размер</div>
+      </div>
+      {files.map((file) => (
+        <File file={file} />
+      ))}
+    </div>
+  );
 };
 
 export default FileList;
