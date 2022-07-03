@@ -15,7 +15,7 @@ const FileList = () => {
         <div className="filelist__size">Размер</div>
       </div>
       {files.map((file) => (
-        <File file={file} />
+        <File key={file._id} file={file} />
       ))}
     </div>
   );
