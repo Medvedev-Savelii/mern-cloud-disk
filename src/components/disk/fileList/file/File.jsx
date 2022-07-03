@@ -4,7 +4,7 @@ import dirLogo from "../../../../assets/img/dir.svg";
 import fileLogo from "../../../../assets/img/file.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentDir, pushToStack } from "../../../../reducers/fileReducer";
-import { downloadFile } from "../../../../actions/file";
+import { downloadFile, deleteFile } from "../../../../actions/file";
 const File = ({ file }) => {
   const dispatch = useDispatch();
   const currentDir = useSelector((state) => state.files.currentDir);
@@ -19,6 +19,10 @@ const File = ({ file }) => {
   function downloadClickHandler(e) {
     e.stopPropagation();
     downloadFile(file);
+  }
+  function deleteClickHandler(e) {
+    e.stopPropagation();
+    dispatch(deleteFile(file));
   }
 
   return (
@@ -40,7 +44,12 @@ const File = ({ file }) => {
           download
         </button>
       )}
-      <button className="file__btn file__delete">delete</button>
+      <button
+        className="file__btn file__delete"
+        onClick={(e) => deleteClickHandler(e)}
+      >
+        Delete
+      </button>
     </div>
   );
 };
