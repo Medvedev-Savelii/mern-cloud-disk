@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Registration from "./authorization/Registration";
 import Login from "./authorization/Login";
 import { auth } from "../actions/user";
+import Profile from "./profile/Profile";
 
 function App() {
   const isAuth = useSelector((state) => state.user.isAuth);
@@ -35,6 +36,7 @@ function App() {
             <Routes>
               <Route>
                 <Route path="" element={<Disk />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Route>
             </Routes>

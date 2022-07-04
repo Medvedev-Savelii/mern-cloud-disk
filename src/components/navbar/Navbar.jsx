@@ -6,13 +6,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../reducers/userReducer";
 import { getFiles, searchFiles } from "../../actions/file";
 import { showLoader } from "../../reducers/appReducer";
+import avatarLogo from "../../assets/img/avatar.svg";
+import { API_URL } from "../../config";
 
 const Navbar = () => {
   const isAuth = useSelector((state) => state.user.isAuth);
   const [searchName, setSearchName] = useState("");
+
   const [searchTimeout, setSearchTimeout] = useState(false);
   const currentDir = useSelector((state) => state.files.currentDir);
- 
+  const currentUser = useSelector((state) => state.user.currentUser);
+
+  const avatar = currentUser.avatar
+    ? `${API_URL + currentUser.avatar}`
+    : avatarLogo;
+
   const dispatch = useDispatch();
 
   function searchChangeHandler(e) {
@@ -38,7 +46,10 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="container">
-        <img src={Logo} alt="" className="navbar__logo" />
+        <NavLink to="/">
+          <img src={Logo} alt="" className="navbar__logo" />
+        </NavLink>
+
         <div className="navbar__header">MERN CLOUD</div>
         {isAuth && (
           <input
@@ -64,6 +75,11 @@ const Navbar = () => {
           <div className="navbar__login" onClick={() => dispatch(logout())}>
             Выход
           </div>
+        )}
+        {isAuth && (
+          <NavLink to="/profile">
+            <img className="navbar__avatar" src={avatar} alt="" />
+          </NavLink>
         )}
       </div>
     </div>
